@@ -3,7 +3,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/bicced/make-integromat-crypto-workflows?style=social)](https://github.com/bicced/make-integromat-crypto-workflows)
 [![License: MIT](https://img.shields.io/github/license/bicced/make-integromat-crypto-workflows)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
-[![Built for n8n](https://img.shields.io/badge/Built%20for-n8n-0a6cff?logo=n8n&logoColor=white)](https://n8n.io)
+[![Built for make.com](https://img.shields.io/badge/Built%20for-make-0a6cff?logo=make&logoColor=white)](https://make.com)
 
 If this project helps you, please ⭐ [Star the repo](https://github.com/bicced/make-integromat-crypto-workflows) and share it.
 
