@@ -1,0 +1,397 @@
+{
+    "name": "ETH to USDC Automated Swap Bot",
+    "flow": [
+        {
+            "id": 1,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "chain",
+                        "value": "ethereum"
+                    },
+                    {
+                        "name": "fromToken(ETH Wrapped)",
+                        "value": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+                    },
+                    {
+                        "name": "toToken(USDC)",
+                        "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                        "name": "amountWei",
+                        "value": "10000000000000"
+                    },
+                    {
+                        "name": "slippage",
+                        "value": "1"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Variables"
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "chain",
+                        "type": "any",
+                        "label": "chain"
+                    },
+                    {
+                        "name": "fromToken(ETH Wrapped)",
+                        "type": "any",
+                        "label": "fromToken(ETH Wrapped)"
+                    },
+                    {
+                        "name": "toToken(USDC)",
+                        "type": "any",
+                        "label": "toToken(USDC)"
+                    },
+                    {
+                        "name": "amountWei",
+                        "type": "any",
+                        "label": "amountWei"
+                    },
+                    {
+                        "name": "slippage",
+                        "type": "any",
+                        "label": "slippage"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "http:ActionSendDataBasicAuth",
+            "version": 3,
+            "parameters": {
+                "key": 71843,
+                "handleErrors": false,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://api.staging.afkcrypto.com/v1/trade/swap",
+                "data": "{\n  \"chain\": \"{{1.chain}}\",\n  \"fromToken\": \"{{1.`fromToken(ETH Wrapped)`}}\",\n  \"toToken\": \"{{1.`toToken(USDC)`}}\",\n  \"amount\": \"{{1.amountWei}}\"\n}",
+                "gzip": true,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "Idempotency-Key",
+                        "value": "{{formatDate(now; \"x\")}}"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": false,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose"
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "bodyType": {
+                            "label": "Raw"
+                        },
+                        "contentType": {
+                            "label": "JSON (application/json)"
+                        }
+                    },
+                    "parameters": {
+                        "key": {
+                            "label": "AFK Crypto"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "key",
+                        "type": "keychain:basicauth",
+                        "label": "Credentials",
+                        "required": true
+                    },
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "serializeUrl",
+                        "type": "boolean",
+                        "label": "Serialize URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "bodyType",
+                        "type": "select",
+                        "label": "Body type",
+                        "validate": {
+                            "enum": [
+                                "raw",
+                                "x_www_form_urlencoded",
+                                "multipart_form_data"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "ca",
+                        "type": "cert",
+                        "label": "Self-signed certificate"
+                    },
+                    {
+                        "name": "rejectUnauthorized",
+                        "type": "boolean",
+                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                        "required": true
+                    },
+                    {
+                        "name": "followRedirect",
+                        "type": "boolean",
+                        "label": "Follow redirect",
+                        "required": true
+                    },
+                    {
+                        "name": "useQuerystring",
+                        "type": "boolean",
+                        "label": "Disable serialization of multiple same query string keys as arrays",
+                        "required": true
+                    },
+                    {
+                        "name": "gzip",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "useMtls",
+                        "type": "boolean",
+                        "label": "Use Mutual TLS",
+                        "required": true
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Content type",
+                        "validate": {
+                            "enum": [
+                                "text/plain",
+                                "application/json",
+                                "application/xml",
+                                "text/xml",
+                                "text/html",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "data",
+                        "type": "buffer",
+                        "label": "Request content"
+                    },
+                    {
+                        "name": "followAllRedirects",
+                        "type": "boolean",
+                        "label": "Follow all redirect",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": [
+            {
+                "moduleIds": [
+                    1
+                ],
+                "content": "<p>Try It Out!</p><p>Enable automatic token swaps on a predefined schedule:</p><p></p><p>Use cases are many: Automate your ETH to USDC conversions daily (or on any custom schedule) without manual trades:</p><p></p><p>How it works:</p><p></p><p>A Schedule Trigger starts the workflow at a set time (default: 9 AM daily).</p><p></p><p>The Set Swap Details node defines swap parameters:</p><p></p><p>FromToken = ETH</p><p></p><p>ToToken = USDC</p><p></p><p>Amount = 0.01 (default, adjustable)</p><p></p><p>Slippage = 0.5%</p><p></p><p>The AFKCrypto Swap API executes the trade from ETH → USDC.</p><p></p><p>How to use:</p><p></p><p>Update the walletAddress in the Set Swap Details node with your AFK wallet.</p><p></p><p>Adjust fromToken and toToken addresses if you want to swap other tokens.</p><p></p><p>Update the amount and slippage values as needed.</p><p></p><p>Set your own schedule in the Schedule Trigger node.</p><p></p><p>Link your AFK Crypto API key in the HTTP Request node credentials.</p><p></p><p>Requirements:</p><p></p><p>AFK Crypto account and API key (www.afkcrypto.com</p><p>)</p><p></p><p>Make instance with access to HTTP Request nodes</p><p></p><p>A wallet funded with ETH (to perform swaps)</p><p></p><p>💱 Swap Smarter, Not Harder!</p>",
+                "isFilterNote": false,
+                "metadata": {
+                    "color": "#9138FE"
+                }
+            }
+        ]
+    }
+}
