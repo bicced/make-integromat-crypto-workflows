@@ -1,0 +1,367 @@
+{
+    "name": "Telegram Alert for ETH Gas Fee Threshold",
+    "flow": [
+        {
+            "id": 1,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://etherscan.io/datasourceHandler?q=gashistoricaldata&draw=1&columns%5B0%5D%5Bdata%5D=lastBlock&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=age&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=safeGasPrice&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=proposeGasPrice&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=fastGasPrice&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=1&order%5B0%5D%5Bdir%5D=desc&start=0&length=15&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1759760172390",
+                "gzip": true,
+                "method": "get",
+                "headers": [],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose"
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "GET"
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "bodyType": {
+                            "label": "Empty"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "serializeUrl",
+                        "type": "boolean",
+                        "label": "Serialize URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "bodyType",
+                        "type": "select",
+                        "label": "Body type",
+                        "validate": {
+                            "enum": [
+                                "raw",
+                                "x_www_form_urlencoded",
+                                "multipart_form_data"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "authUser",
+                        "type": "text",
+                        "label": "User name"
+                    },
+                    {
+                        "name": "authPass",
+                        "type": "password",
+                        "label": "Password"
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "ca",
+                        "type": "cert",
+                        "label": "Self-signed certificate"
+                    },
+                    {
+                        "name": "rejectUnauthorized",
+                        "type": "boolean",
+                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                        "required": true
+                    },
+                    {
+                        "name": "followRedirect",
+                        "type": "boolean",
+                        "label": "Follow redirect",
+                        "required": true
+                    },
+                    {
+                        "name": "useQuerystring",
+                        "type": "boolean",
+                        "label": "Disable serialization of multiple same query string keys as arrays",
+                        "required": true
+                    },
+                    {
+                        "name": "gzip",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "useMtls",
+                        "type": "boolean",
+                        "label": "Use Mutual TLS",
+                        "required": true
+                    },
+                    {
+                        "name": "followAllRedirects",
+                        "type": "boolean",
+                        "label": "Follow all redirect",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 5,
+            "module": "telegram:SendReplyMessage",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 5839306
+            },
+            "filter": {
+                "name": "",
+                "conditions": [
+                    [
+                        {
+                            "a": "{{1.data.data[].proposeGasPrice}}",
+                            "b": "{{1.data.data[].safeGasPrice}}",
+                            "o": "number:less"
+                        }
+                    ]
+                ]
+            },
+            "mapper": {
+                "text": "🚨 Ethereum Gas Fee Update 🚨\n\nSafe Gas Price: {{1.data.data[].safeGasPrice}}\nPropose Gas Price: {{1.data.data[].proposeGasPrice}}\nFast Gas Price: {{1.data.data[].fastGasPrice}}\n\nBlock Time Stamp: {{1.data.data[].blockTimeStamp}}",
+                "chatId": "CHAT_ID",
+                "parseMode": "",
+                "replyMarkup": "",
+                "messageThreadId": "",
+                "replyToMessageId": "",
+                "replyMarkupAssembleType": "reply_markup_enter"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "parseMode": {
+                            "label": "Empty"
+                        },
+                        "disableNotification": {
+                            "mode": "chose"
+                        },
+                        "replyMarkupAssembleType": {
+                            "label": "Enter the Reply Markup"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "telegram"
+                            },
+                            "label": "My Telegram Bot connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:telegram",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "chatId",
+                        "type": "text",
+                        "label": "Chat ID",
+                        "required": true
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text",
+                        "required": true
+                    },
+                    {
+                        "name": "messageThreadId",
+                        "type": "number",
+                        "label": "Message Thread ID"
+                    },
+                    {
+                        "name": "parseMode",
+                        "type": "select",
+                        "label": "Parse Mode",
+                        "validate": {
+                            "enum": [
+                                "Markdown",
+                                "HTML"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "disableNotification",
+                        "type": "boolean",
+                        "label": "Disable Notifications"
+                    },
+                    {
+                        "name": "disableWebPagePreview",
+                        "type": "boolean",
+                        "label": "Disable Link Previews"
+                    },
+                    {
+                        "name": "replyToMessageId",
+                        "type": "number",
+                        "label": "Original Message ID"
+                    },
+                    {
+                        "name": "replyMarkupAssembleType",
+                        "type": "select",
+                        "label": "Enter/Assemble the Reply Markup Field",
+                        "validate": {
+                            "enum": [
+                                "reply_markup_enter",
+                                "reply_markup_assemble"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "replyMarkup",
+                        "type": "text",
+                        "label": "Reply Markup"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
