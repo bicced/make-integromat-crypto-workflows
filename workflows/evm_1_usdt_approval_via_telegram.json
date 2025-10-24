@@ -257,7 +257,7 @@
                 "__IMTCONN__": 5839306
             },
             "mapper": {
-                "text": "✅ Token approval successful!\n\nChain: Ethereum\nToken: USDC\nTokenAddress: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\nSpender: 1Inch\nSpenderAddress: 0x111111125421cA6dc452d289314280a0f8842A65\nAmount: 1.0 ETH\nHash: {{1.data.hash}}",
+                "text": "✅ Token approval successful!\n\nChain: Ethereum\nToken: USDT\nTokenAddress: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\nSpender: 1Inch\nSpenderAddress: 0x111111125421cA6dc452d289314280a0f8842A65\nAmount: 1 USDT\nHash: {{1.data.hash}}",
                 "chatId": "CHAT_ID",
                 "parseMode": "",
                 "replyMarkup": "",
