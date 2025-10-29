@@ -1,0 +1,388 @@
+{
+    "name": "EVM - 1 Polygon (MATIC) Approval via Telegram",
+    "flow": [
+        {
+            "id": 1,
+            "module": "http:ActionSendDataAPIKeyAuth",
+            "version": 3,
+            "parameters": {
+                "auth": 72749,
+                "handleErrors": false,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://api.afkcrypto.com/v1/token/approve",
+                "data": "{\n  \"chain\": \"ethereum\",\n  \"token\": \"0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0\",\n  \"spender\": \"0x111111125421cA6dc452d289314280a0f8842A65\",\n  \"amount\": \"1000000000000000000\"\n}",
+                "gzip": true,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "Idempotency-Key",
+                        "value": "{{formatDate(now; \"x\")}}"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "qs": {
+                            "mode": "chose"
+                        },
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "bodyType": {
+                            "label": "Raw"
+                        },
+                        "contentType": {
+                            "label": "JSON (application/json)"
+                        }
+                    },
+                    "parameters": {
+                        "auth": {
+                            "label": "App AFK Crypto"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "auth",
+                        "type": "keychain:apikeyauth",
+                        "label": "Credentials",
+                        "required": true
+                    },
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "serializeUrl",
+                        "type": "boolean",
+                        "label": "Serialize URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "qs",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Query String"
+                    },
+                    {
+                        "name": "bodyType",
+                        "type": "select",
+                        "label": "Body type",
+                        "validate": {
+                            "enum": [
+                                "raw",
+                                "x_www_form_urlencoded",
+                                "multipart_form_data"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "ca",
+                        "type": "cert",
+                        "label": "Self-signed certificate"
+                    },
+                    {
+                        "name": "rejectUnauthorized",
+                        "type": "boolean",
+                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                        "required": true
+                    },
+                    {
+                        "name": "followRedirect",
+                        "type": "boolean",
+                        "label": "Follow redirect",
+                        "required": true
+                    },
+                    {
+                        "name": "useQuerystring",
+                        "type": "boolean",
+                        "label": "Disable serialization of multiple same query string keys as arrays",
+                        "required": true
+                    },
+                    {
+                        "name": "gzip",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "useMtls",
+                        "type": "boolean",
+                        "label": "Use Mutual TLS",
+                        "required": true
+                    },
+                    {
+                        "name": "contentType",
+                        "type": "select",
+                        "label": "Content type",
+                        "validate": {
+                            "enum": [
+                                "text/plain",
+                                "application/json",
+                                "application/xml",
+                                "text/xml",
+                                "text/html",
+                                "custom"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "data",
+                        "type": "buffer",
+                        "label": "Request content"
+                    },
+                    {
+                        "name": "followAllRedirects",
+                        "type": "boolean",
+                        "label": "Follow all redirect",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "telegram:SendReplyMessage",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 5839306
+            },
+            "mapper": {
+                "chatId": "CHAT_ID",
+                "text": "✅ Token approval successful!\n\nChain: Ethereum\nToken: Polygon (MATIC)\nTokenAddress: 0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0\nSpender: 1Inch\nSpenderAddress: 0x111111125421cA6dc452d289314280a0f8842A65\nAmount: 1 MATIC\nHash: {{1.data.hash}}",
+                "messageThreadId": "",
+                "parseMode": "",
+                "replyToMessageId": "",
+                "replyMarkupAssembleType": "reply_markup_enter",
+                "replyMarkup": ""
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "My Telegram Bot connection",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "telegram"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "parseMode": {
+                            "label": "Empty"
+                        },
+                        "disableNotification": {
+                            "mode": "chose"
+                        },
+                        "replyMarkupAssembleType": {
+                            "label": "Enter the Reply Markup"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:telegram",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "chatId",
+                        "type": "text",
+                        "label": "Chat ID",
+                        "required": true
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text",
+                        "required": true
+                    },
+                    {
+                        "name": "messageThreadId",
+                        "type": "number",
+                        "label": "Message Thread ID"
+                    },
+                    {
+                        "name": "parseMode",
+                        "type": "select",
+                        "label": "Parse Mode",
+                        "validate": {
+                            "enum": [
+                                "Markdown",
+                                "HTML"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "disableNotification",
+                        "type": "boolean",
+                        "label": "Disable Notifications"
+                    },
+                    {
+                        "name": "disableWebPagePreview",
+                        "type": "boolean",
+                        "label": "Disable Link Previews"
+                    },
+                    {
+                        "name": "replyToMessageId",
+                        "type": "number",
+                        "label": "Original Message ID"
+                    },
+                    {
+                        "name": "replyMarkupAssembleType",
+                        "type": "select",
+                        "label": "Enter/Assemble the Reply Markup Field",
+                        "validate": {
+                            "enum": [
+                                "reply_markup_enter",
+                                "reply_markup_assemble"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "replyMarkup",
+                        "type": "text",
+                        "label": "Reply Markup"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
