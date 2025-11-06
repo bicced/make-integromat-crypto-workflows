@@ -1,5 +1,5 @@
 {
-    "name": "Birthday / Anniversary Solana (USDT) Crypto Sender (Telegram)",
+    "name": "Birthday / Anniversary Solana (USDC) Crypto Sender (Telegram)",
     "flow": [
         {
             "id": 6,
@@ -26,7 +26,7 @@
                     },
                     {
                         "name": "token",
-                        "value": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
+                        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
                     }
                 ],
                 "scope": "roundtrip"
@@ -123,8 +123,11 @@
                 "useNewZLibDeCompress": true
             },
             "mapper": {
+                "ca": "",
+                "qs": [],
                 "url": "https://api.afkcrypto.com/v1/wallets/balances",
-                "serializeUrl": false,
+                "data": "{\n  \"chain\": \"{{6.chain}}\",\n  \"to\": \"{{6.to}}\",\n  \"asset\": \"{{6.asset}}\",\n  \"token\": \"{{6.token}}\",\n  \"amount\": \"{{6.amount}}\"\n}",
+                "gzip": true,
                 "method": "post",
                 "headers": [
                     {
@@ -132,20 +135,17 @@
                         "value": "{{formatDate(now; \"x\")}}"
                     }
                 ],
-                "qs": [],
-                "bodyType": "raw",
-                "parseResponse": true,
                 "timeout": "",
+                "useMtls": false,
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
                 "shareCookies": false,
-                "ca": "",
-                "rejectUnauthorized": true,
+                "parseResponse": true,
                 "followRedirect": true,
                 "useQuerystring": false,
-                "gzip": true,
-                "useMtls": false,
-                "contentType": "application/json",
-                "data": "{\n  \"chain\": \"{{6.chain}}\",\n  \"to\": \"{{6.to}}\",\n  \"asset\": \"{{6.asset}}\",\n  \"token\": \"{{6.token}}\",\n  \"amount\": \"{{6.amount}}\"\n}",
-                "followAllRedirects": false
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
             },
             "metadata": {
                 "designer": {
@@ -153,12 +153,10 @@
                     "y": 0
                 },
                 "restore": {
-                    "parameters": {
-                        "auth": {
-                            "label": "n8n"
-                        }
-                    },
                     "expect": {
+                        "qs": {
+                            "mode": "chose"
+                        },
                         "method": {
                             "mode": "chose",
                             "label": "POST"
@@ -169,14 +167,16 @@
                                 null
                             ]
                         },
-                        "qs": {
-                            "mode": "chose"
-                        },
                         "bodyType": {
                             "label": "Raw"
                         },
                         "contentType": {
                             "label": "JSON (application/json)"
+                        }
+                    },
+                    "parameters": {
+                        "auth": {
+                            "label": "n8n"
                         }
                     }
                 },
@@ -230,39 +230,39 @@
                     },
                     {
                         "name": "headers",
-                        "type": "array",
-                        "label": "Headers",
                         "spec": [
                             {
                                 "name": "name",
-                                "label": "Name",
                                 "type": "text",
+                                "label": "Name",
                                 "required": true
                             },
                             {
                                 "name": "value",
-                                "label": "Value",
-                                "type": "text"
+                                "type": "text",
+                                "label": "Value"
                             }
-                        ]
+                        ],
+                        "type": "array",
+                        "label": "Headers"
                     },
                     {
                         "name": "qs",
-                        "type": "array",
-                        "label": "Query String",
                         "spec": [
                             {
                                 "name": "name",
-                                "label": "Name",
                                 "type": "text",
+                                "label": "Name",
                                 "required": true
                             },
                             {
                                 "name": "value",
-                                "label": "Value",
-                                "type": "text"
+                                "type": "text",
+                                "label": "Value"
                             }
-                        ]
+                        ],
+                        "type": "array",
+                        "label": "Query String"
                     },
                     {
                         "name": "bodyType",
@@ -362,7 +362,7 @@
             }
         },
         {
-            "id": 7,
+            "id": 10,
             "module": "telegram:SendReplyMessage",
             "version": 1,
             "parameters": {
@@ -370,7 +370,7 @@
             },
             "mapper": {
                 "chatId": "CHAT_ID",
-                "text": "🎉 Birthday / Anniversary Gift Sent!\n\nChain: Solana (USDT)\nReceiver: {{6.to}}\nAmount: {{6.amount}} Lamports\n\nDon't forget to send your greetings!",
+                "text": "🎉 Birthday / Anniversary Gift Sent!\n\nChain: Solana (USDC)\nReceiver: {{6.to}}\nAmount: {{6.amount}} Lamports\n\nDon't forget to send your greetings!",
                 "messageThreadId": "",
                 "parseMode": "",
                 "replyToMessageId": "",
